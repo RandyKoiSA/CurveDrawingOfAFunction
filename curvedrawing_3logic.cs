@@ -25,3 +25,21 @@ public class curvedrawing_3logic{
         y = System.Math.Cos(2 * t) * System.Math.Sin(t);
     }
 }
+
+
+//To: Students in the 223N class
+//This file contains an implementation of the get_next_coordinates method used with the curve defined by r = a+b*t, which has corresponding cartesian
+//coordinate functions: x = r*cos(t) = (a+b*t)*cos(t) and y = r*sin(t) = (a+b*t)*sin(t).
+
+//The tangent vector is r'(t) = (x'(t),y'(t)), and the magnitude_of_tangent_vector_squared = x'(t)^2+y'(t)^2 = b^2+(a+b*t)^2.
+//That is the tangent vector that corresponds to the initial curve function r = a+b*t.
+//You can not use the same code as found in this get_next_coordinates function because it only works with the curve: r=a+b*t.
+//If you use this get_next_coordinates method with your curve function you will create a wrong program, and thereby loose a lot of points.
+
+
+//You have to do the hard steps yourself:
+//1. Start with your curve function r(t) = (x(t),y(t))
+//2. Find the derivatives x'(t), y'(t)
+//3. Find the tangent vector (x'(t),y'(t))
+//4. Compute the absolute value of that tangent vector which is also known as magnitude of the tangent vector
+//5. Use that magnitude as the divisor as demonstrated in the function in the class Spiral_algorithms.
