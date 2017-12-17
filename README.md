@@ -5,10 +5,13 @@ Language: C# program
 Distribution: Xubuntu
 *********************************************************
 Software: Monodevelop
-*********************************************************
+
 Date of Creation: 11/27/2017
+
 Author: Randy Le
+
 Author's Email: 97Randy.le@gmail.com
+
 Course: CPSC223N
 *********************************************************
 Source Files:
