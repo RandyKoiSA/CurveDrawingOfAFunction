@@ -2,11 +2,12 @@
 Language: C# program
 Distribution: Xubuntu
 Software: Monodevelop
-
+*********************************************************
 Date of Creation: 1
 Author: Randy Le
 Author's Email: 97Randy.le@gmail.com
 Course: CPSC223N
+*********************************************************
 Source Files:
 1. curvedrawing_3main.cs
 2. curvedrawing_3frame.cs
