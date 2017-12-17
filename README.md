@@ -6,10 +6,10 @@ Distribution: Xubuntu
 *********************************************************
 Software: Monodevelop
 *********************************************************
-Date of Creation: 11/27/2017
-Author: Randy Le
-Author's Email: 97Randy.le@gmail.com
-Course: CPSC223N
+.Date of Creation: 11/27/2017
+.Author: Randy Le
+.Author's Email: 97Randy.le@gmail.com
+.Course: CPSC223N
 *********************************************************
 Source Files:
 1. curvedrawing_3main.cs
