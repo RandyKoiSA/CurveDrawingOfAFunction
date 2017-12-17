@@ -18,7 +18,19 @@ Source Files:
 1. curvedrawing_3main.cs
 2. curvedrawing_3frame.cs
 3. curvedrawing_3logic.cs
+*********************************************************
+To run the program on linux please run this program in order in the terminal
+1) mcs -target:library curvedrawing_3logic.cs -r:System.Drawing.dll -out:curvedrawing_3logic.dll
+2) mcs -target:library curvedrawing_3frame.cs -r:System.Windows.Forms.dll -r:System.Drawing.dll -r:curvedrawing_3logic.dll -out:curvedrawing_3frame.dll
+3) mcs curvedrawing_3main.cs -r:System.Windows.Forms.dll -r:System.Drawing.dll -r:curvedrawing_3frame.dll -r:curvedrawing_3logic.dll -out:curvedrawing3.exe
+4) ./curvedrawing3.exe
 
+or 
+
+run the run.sh file with the command
+1)sh run.sh
+
+*********************************************************
 A C# program that produces a graphical output. Drawing a curve using a given math
 equations of that curve. Drawing a function that graphs a fascinating shape such as a
 flower, figure-eights, hearts, snow flakes, spirals, diamonds, and other amazing patterns.
