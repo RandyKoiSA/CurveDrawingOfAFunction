@@ -28,7 +28,7 @@ This program teaches.
 2. Conversion between C# coordinates and Math coordinates.
 3. The scale factor that relates the two types of coordinates.
 4. Equations in polar coordinates; equations in rectangular coordinates.
-5. How to add contant to the current image without destroying the existing content.
+5. How to add consant to the current image without destroying the existing content.
 
 The program will have a UI that display a panel structure of buttons (Start, Pause/Resume/ Exit).
 It also displays the X and Y coordinates values showned in mathematical coordiantes of the point
