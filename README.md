@@ -1,4 +1,4 @@
-# Repository Name: Curve-Drawing-of-Cos-2t-
+# Repository Name: Curve-Drawing-Of-A-Function
 *********************************************************
 Language: C# program
 *********************************************************
