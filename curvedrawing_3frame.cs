@@ -28,7 +28,8 @@ public class curvedrawing_3frame : Form{ //Entering curvedrawing_3frame class
     private const int control_region_height = 100;                                  //Height of the control panel w/ all the button             
     private const int graphic_area_height = form_height - control_region_height;    //Height of the display of the program
     private const int form_width = graphic_area_height * 16 / 9;                    //Width of the full program
-    private const int horizontal_adjustment = 8;                    
+    private const int horizontal_adjustment = 8;
+    private const int function_region_height = 70;
 
 	private Size maxframesize = new Size(form_width, form_height);                  //Maximum / Minimum size of the program can be resized
 	private Size minframesize = new Size(form_width, form_height);
@@ -43,6 +44,24 @@ public class curvedrawing_3frame : Form{ //Entering curvedrawing_3frame class
     private Point pause_button_location = new Point(250, form_height - control_region_height + 20);     //Location of where the pause_button will go
     private Point exit_button_location = new Point(1200, form_height - control_region_height + 20);     //Location of where the exit_button will go
 
+    private GroupBox functionselection = new GroupBox();
+    private Point functionselection_location = new Point(10, 10);
+
+    private RadioButton function_1 = new RadioButton();
+    private RadioButton function_2 = new RadioButton();
+    private RadioButton function_3 = new RadioButton();
+    private RadioButton function_4 = new RadioButton();
+    private RadioButton function_5 = new RadioButton();
+    private RadioButton function_6 = new RadioButton();
+
+    private Point function_1_location = new Point(20, 10);
+    private Point function_2_location = new Point(130, 10);
+    private Point function_3_location = new Point(240, 10);
+    private Point function_4_location = new Point(350, 10);
+    private Point function_5_location = new Point(460, 10);
+    private Point function_6_location = new Point(570, 10);
+
+    private int selection = 0;
     //***************************************************************************************************************************************************
 
     //Declare Instruments********************************************************************************************************************************
@@ -98,6 +117,15 @@ public class curvedrawing_3frame : Form{ //Entering curvedrawing_3frame class
     private double t = t_initial_value;
     private double x; 
     private double y;
+    //***************************************************************************************************************************************************
+    private double r = 0; //Selected Function
+
+    private double rose_four_leaves;
+    private double loops_around_donut;
+    private double cardoid;
+    private double conchoid;
+    private double spiral;
+    private double flower_with_eight_pedals;
 	//***************************************************************************************************************************************************
 
 	//Variables for the scaled description of the curve function
@@ -126,7 +154,7 @@ public class curvedrawing_3frame : Form{ //Entering curvedrawing_3frame class
     public curvedrawing_3frame(){
         Size = new Size(form_width, form_height);                               //Set Size of the program
         BackColor = Color.LightGray;                                            //Set background color of the program
-        Text = "Curve Drawing of Cos(2t) by Randy Le";                          //Set the title of the program
+        Text = "Curve Drawing of a function by Randy Le";                          //Set the title of the program
         MaximumSize = maxframesize;                                             //Set max/min of resizing the program
         MinimumSize = minframesize;
         DoubleBuffered = true;
@@ -144,20 +172,69 @@ public class curvedrawing_3frame : Form{ //Entering curvedrawing_3frame class
         exit_button.Location = exit_button_location;
         exit_button.Size = new Size(100, 32);
 
+        functionselection.Size = new Size(1390, 60);
+        functionselection.BackColor = Color.Green;
+        functionselection.Location = functionselection_location;
+
+        function_1.Text = "Rose 4 Pedals";
+        function_1.BackColor = Color.Yellow;
+        function_1.Location = function_1_location;
+        function_1.Size = new Size(100,40);
+        function_2.Text = "Loop around Donut";
+        function_2.BackColor = Color.Yellow;
+        function_2.Location = function_2_location;
+        function_2.Size = new Size(100, 40);
+        function_3.Text = "Cardoid";
+        function_3.BackColor = Color.Yellow;
+        function_3.Location = function_3_location;
+        function_3.Size = new Size(100, 40);
+        function_4.Text = "Conchoid";
+        function_4.BackColor = Color.Yellow;
+        function_4.Location = function_4_location;
+        function_4.Size = new Size(100, 40);
+        function_5.Text = "Spiral";
+        function_5.BackColor = Color.Yellow;
+        function_5.Location = function_5_location;
+        function_5.Size = new Size(100, 40);
+        function_6.Text = "Flower w/ 8 Pedal";
+        function_6.BackColor = Color.Yellow;
+        function_6.Location = function_6_location;
+        function_6.Size = new Size(100, 40);
+
+        functionselection.Controls.Add(function_1);
+        functionselection.Controls.Add(function_2);
+        functionselection.Controls.Add(function_3);
+        functionselection.Controls.Add(function_4);
+        functionselection.Controls.Add(function_5);
+        functionselection.Controls.Add(function_6);
+
         Controls.Add(go_button);
         Controls.Add(pause_button);
         Controls.Add(exit_button);
+        Controls.Add(functionselection);
 
         go_button.Click += new EventHandler(manage_go_button);
         pause_button.Click += new EventHandler(manage_pause_button);
         exit_button.Click += new EventHandler(closeprogram);
-
+        function_1.Click += new EventHandler(manage_selection_1);
+        function_2.Click += new EventHandler(manage_selection_2);
+        function_3.Click += new EventHandler(manage_selection_3);
+        function_4.Click += new EventHandler(manage_selection_4);
+        function_5.Click += new EventHandler(manage_selection_5);
+        function_6.Click += new EventHandler(manage_selection_6);
         //=========================================================================================
         algorithm = new curvedrawing_3logic();
         //Set initial values for the curve in standard mathermatical cartesian coordiantes system;
         t = t_initial_value;
-        x = System.Math.Cos(2 * t) * System.Math.Cos(t);
-        y = System.Math.Cos(2 * t) * System.Math.Sin(t);
+        x = r * System.Math.Cos(t);
+        y = r * System.Math.Sin(t);
+        //Set the value of the functions
+        rose_four_leaves = System.Math.Cos(2 * t);
+        loops_around_donut = System.Math.Sin((8 / 5) * t);
+        cardoid = 1 + System.Math.Sin(t);
+        conchoid = 4 + 2*(1 / System.Math.Cos(t));
+        spiral = System.Math.Sqrt(t);
+        flower_with_eight_pedals = System.Math.Sin(4 * t);
 
         //prepare the refresh clock
         graphic_area_refresh_clock.Enabled = false;
@@ -189,6 +266,61 @@ public class curvedrawing_3frame : Form{ //Entering curvedrawing_3frame class
         board.DrawImage(pointer_to_bitmap_in_memory, 0, 0, form_width, graphic_area_height);
         base.OnPaint(e);
     }
+    protected void manage_selection_1(Object sender,EventArgs events){
+        selection = 1;
+		t = t_initial_value;
+		x = rose_four_leaves * System.Math.Cos(t);
+		y = rose_four_leaves * System.Math.Sin(t);
+		graphic_area_refresh_clock.Enabled = false;
+		dot_refresh_clock.Enabled = false;
+        initialize_bitmap();
+    }
+    protected void manage_selection_2(Object sender,EventArgs events){
+		selection = 2;
+		t = t_initial_value;
+		x = loops_around_donut * System.Math.Cos(t);
+		y = loops_around_donut * System.Math.Sin(t);
+		graphic_area_refresh_clock.Enabled = false;
+		dot_refresh_clock.Enabled = false;
+		initialize_bitmap();
+	}
+    protected void manage_selection_3(Object sener,EventArgs events){
+		selection = 3;
+		t = t_initial_value;
+		x = cardoid * System.Math.Cos(t);
+		y = cardoid * System.Math.Sin(t);
+		graphic_area_refresh_clock.Enabled = false;
+		dot_refresh_clock.Enabled = false;
+		initialize_bitmap();
+	}
+    protected void manage_selection_4(Object sender,EventArgs events){
+		selection = 4;
+		t = t_initial_value;
+		x = conchoid * System.Math.Cos(t);
+		y = conchoid * System.Math.Sin(t);
+		graphic_area_refresh_clock.Enabled = false;
+		dot_refresh_clock.Enabled = false;
+		initialize_bitmap();
+    }
+    protected void manage_selection_5(Object sender, EventArgs events){
+		selection = 5;
+		t = t_initial_value;
+		x = spiral * System.Math.Cos(t);
+		y = spiral * System.Math.Sin(t);
+		graphic_area_refresh_clock.Enabled = false;
+		dot_refresh_clock.Enabled = false;
+		initialize_bitmap();
+    }
+    protected void manage_selection_6(Object sender, EventArgs events){
+		selection = 6;
+		t = t_initial_value;
+		x = flower_with_eight_pedals * System.Math.Cos(t);
+		y = flower_with_eight_pedals * System.Math.Sin(t);
+		graphic_area_refresh_clock.Enabled = false;
+		dot_refresh_clock.Enabled = false;
+		initialize_bitmap();
+    }
+
     protected void manage_go_button(Object sender, EventArgs events){
         double elapsed_time_between_updates_of_coordinates;
         double local_update_rate = dot_update_rate;
@@ -205,7 +337,7 @@ public class curvedrawing_3frame : Form{ //Entering curvedrawing_3frame class
         dot_refresh_clock.Enabled = false;
     }
     protected void closeprogram(Object sender, EventArgs events){
-        System.Console.WriteLine("The curvedrawing program is now closign");
+        System.Console.WriteLine("The curvedrawing program is now closing");
         Close();
     }
     //**************************************************************************
@@ -236,7 +368,24 @@ public class curvedrawing_3frame : Form{ //Entering curvedrawing_3frame class
     }
     protected void Update_the_position_of_the_dot(Object sender, ElapsedEventArgs evts){
         //get next coordinate function from algorithm here
-        algorithm.get_next_coordinates(mathematical_distance_traveled_in_one_tic, ref t, out x, out y);
+        if(selection == 1){
+            algorithm.get_next_coordinates_function_1(mathematical_distance_traveled_in_one_tic, ref t, out x, out y);
+        }
+        if(selection == 2){
+            algorithm.get_next_coordinates_function_2(mathematical_distance_traveled_in_one_tic, ref t, out x, out y);
+        }
+        if(selection == 3){
+            algorithm.get_next_coordinates_function_3(mathematical_distance_traveled_in_one_tic, ref t, out x, out y);
+        }
+        if(selection == 4){
+            algorithm.get_next_coordinates_function_4(mathematical_distance_traveled_in_one_tic, ref t, out x, out y);
+        }
+        if(selection == 5){
+            algorithm.get_next_coordinates_function_5(mathematical_distance_traveled_in_one_tic, ref t, out x, out y);
+        }
+        if(selection == 6){
+            algorithm.get_next_coordinates_function_6(mathematical_distance_traveled_in_one_tic, ref t, out x, out y);
+        }
         x_scaled_double = scale_factor * x + form_width/2;
         y_scaled_double = scale_factor * y + graphic_area_height / 2;
     }

@@ -12,6 +12,8 @@
  * Tracing and following the function : cos(2t). Having to change polar coordinatess to cartesian coordinates
  * Compile this file:
  * mcs curvedrawing_3main.cs -r:System.Windows.Form.dll -r:System.Drawing.dll -r:curvedrawing_3main.dll -r:curvedrawing_3logic.dll -out:curvedrawing3.exe
+ * 
+ * ./curvedrawing3.exe
  */
 using System;
 using System.Windows.Forms;

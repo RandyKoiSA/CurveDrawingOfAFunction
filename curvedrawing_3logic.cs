@@ -17,18 +17,61 @@ public class curvedrawing_3logic{
     private double magnitude_of_tangent_vector_squared;
     private double magnitude_of_tangent_vector;
 
-    public void get_next_coordinates(double distance_in_1_tic, ref double t, out double x, out double y){
-        magnitude_of_tangent_vector_squared = 4 + System.Math.Cos(t) * System.Math.Cos(t);
+    //Each function should have its own class to calculate the magnitude of the tangent vector
+    //Rose With the Four Pedals : cos(2t)
+    public void get_next_coordinates_function_1(double distance_in_1_tic, ref double t, out double x, out double y){
+        magnitude_of_tangent_vector_squared = (4 * System.Math.Sin(2 * t) * System.Math.Sin(2 * t)) + (System.Math.Cos(2 * t) * System.Math.Cos(2 * t));
         magnitude_of_tangent_vector = System.Math.Sqrt(magnitude_of_tangent_vector_squared);
         t = t + distance_in_1_tic / magnitude_of_tangent_vector;
-        x = System.Math.Cos(2 * t) * System.Math.Cos(t);
-        y = System.Math.Cos(2 * t) * System.Math.Sin(t);
+        x = (System.Math.Cos(2 * t)) * System.Math.Cos(t);
+        y = (System.Math.Cos(2 * t)) * System.Math.Sin(t);
     }
+    //Loops with around donut
+    public void get_next_coordinates_function_2(double distance_in_1_tic, ref double t, out double x, out double y){
+        magnitude_of_tangent_vector_squared = 64 / 25 * System.Math.Cos(8 / 5 * t) * System.Math.Cos(8 / 5 * t) * System.Math.Sin(8 / 5 * t) * System.Math.Sin(8 / 5 * t);
+        magnitude_of_tangent_vector = System.Math.Sqrt(magnitude_of_tangent_vector_squared);
+        t = t + distance_in_1_tic / magnitude_of_tangent_vector;
+        x = System.Math.Sin(8 / 5 * t) * System.Math.Cos(t);
+        y = System.Math.Sin(8 / 5 * t) * System.Math.Sin(t);
+    }
+    //Cardoid
+    public void get_next_coordinates_function_3(double distance_in_1_tic, ref double t, out double x, out double y){
+        magnitude_of_tangent_vector_squared = (System.Math.Cos(t) * System.Math.Cos(t)) + (System.Math.Sin(t) * System.Math.Sin(t)) + (2 * System.Math.Sin(t)) + 1;
+        magnitude_of_tangent_vector = System.Math.Sqrt(magnitude_of_tangent_vector);
+        t = t + distance_in_1_tic / magnitude_of_tangent_vector;
+        x = (1 + System.Math.Sin(t)) * System.Math.Cos(t);
+        y = (1 + System.Math.Sin(t)) * System.Math.Sin(t);
+    }
+    //Conchoid
+    public void get_next_coordinates_function_4(double distance_in_1_tic, ref double t, out double x, out double y){
+        magnitude_of_tangent_vector_squared = 4 * (((1 / System.Math.Cos(t)) * (1 / System.Math.Cos(t)) * (System.Math.Sin(t) / System.Math.Cos(t)) * (System.Math.Sin(t) / System.Math.Cos(t))) + 4 + (2 * (1/System.Math.Cos(t)) + ((1 / System.Math.Cos(t) * (1 / System.Math.Cos(t))))));
+        magnitude_of_tangent_vector = System.Math.Sqrt((magnitude_of_tangent_vector_squared));
+        t = t + distance_in_1_tic / magnitude_of_tangent_vector;
+        x = (4 + (2 * (1 / System.Math.Cos(t)))) * System.Math.Cos(t);
+        y = (4 + (2 * (1 / System.Math.Cos(t)))) * System.Math.Sin(t);
+    }
+    //Spiral
+    public void get_next_coordinates_function_5(double distance_in_1_tic, ref double t, out double x, out double y){
+        magnitude_of_tangent_vector_squared = (1 / 4) * (1 / t) + t;
+        magnitude_of_tangent_vector = System.Math.Sqrt(magnitude_of_tangent_vector_squared);
+        t = t + distance_in_1_tic / magnitude_of_tangent_vector;
+        x = (System.Math.Sqrt(t)) * System.Math.Cos(t);
+        y = (System.Math.Sqrt(t)) * System.Math.Sin(t);
+    }
+    //Flower with eight pedals 
+    public void get_next_coordinates_function_6(double distance_in_1_tic, ref double t, out double x, out double y){
+        magnitude_of_tangent_vector_squared = (16 * System.Math.Cos(4 * t) * System.Math.Cos(4 * t)) + (System.Math.Sin(4 * t) * System.Math.Sin(4 * t));
+        magnitude_of_tangent_vector = System.Math.Sqrt(magnitude_of_tangent_vector_squared);
+        t = t + distance_in_1_tic / magnitude_of_tangent_vector;
+        x = System.Math.Sin(4 * t) * System.Math.Cos(t);
+        y = System.Math.Sin(4 * t) * System.Math.Sin(t);
+    }
+
 }
 
 
 //To: Students in the 223N class
-//This file contains an implementation of the get_next_coordinates method used with the curve defined by r = a+b*t, which has corresponding cartesian
+//This file contains an fimplementation of the get_next_coordinates method used with the curve defined by r = a+b*t, which has corresponding cartesian
 //coordinate functions: x = r*cos(t) = (a+b*t)*cos(t) and y = r*sin(t) = (a+b*t)*sin(t).
 
 //The tangent vector is r'(t) = (x'(t),y'(t)), and the magnitude_of_tangent_vector_squared = x'(t)^2+y'(t)^2 = b^2+(a+b*t)^2.
